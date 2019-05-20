@@ -1,0 +1,37 @@
+{
+  "name": "phaser3-cli",
+  "version": "0.0.4",
+  "description": "A CLI for Phaser 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gammafp/phaser3-cli.git"
+  },
+  "keywords": [
+    "phaser3",
+    "cli",
+    "phaser3-cli",
+    "games",
+    "javascript"
+  ],
+  "author": "Francisco Pereira Alvarado",
+  "bin": {
+    "phaser": "./index.js"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gammafp/phaser3-cli/issues"
+  },
+  "homepage": "https://github.com/gammafp/phaser3-cli#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "clear": "^0.1.0",
+    "commander": "^2.20.0",
+    "figlet": "^1.2.1",
+    "inquirer": "^6.3.1",
+    "ora": "^3.4.0"
+  }
+}
