@@ -1,0 +1,15 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2016",
+    "module": "CommonJS",
+    "sourceMap": false,
+    "noImplicitAny": false,
+    "strict": false,
+    "typeRoots": [
+      "def"
+    ],
+  }
+}

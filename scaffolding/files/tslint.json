@@ -1,0 +1,75 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "variable-name": [
+            true,
+            "check-format",
+            "ban-keywords",
+            "allow-snake-case",
+            "allow-trailing-underscore"
+        ],
+        "array-type": false,
+        "arrow-parens": false,
+        "max-line-length": {
+            "options": [140]
+        },
+        "deprecation": {
+            "severity": "warn"
+        },
+        "interface-name": false,
+        "max-classes-per-file": false,
+        "member-access": false,
+        "member-ordering": [
+            true,
+            {
+                "order": [
+                    "static-field",
+                    "instance-field",
+                    "static-method",
+                    "instance-method"
+                ]
+            }
+        ],
+        "no-consecutive-blank-lines": false,
+        "no-empty": false,
+        "no-inferrable-types": [
+            true,
+            "ignore-params"
+        ],
+        "no-non-null-assertion": true,
+        "no-redundant-jsdoc": true,
+        "no-switch-case-fall-through": true,
+        "no-use-before-declare": true,
+        "no-var-requires": false,
+        "object-literal-key-quotes": [
+            true,
+            "as-needed"
+        ],
+        "object-literal-sort-keys": false,
+        "ordered-imports": false,
+        "quotemark": [
+            true,
+            "single"
+        ],
+        "trailing-comma": false,
+        "new-parens": true,
+        "no-arg": true,
+        "no-bitwise": true,
+        "no-conditional-assignment": true,
+        "no-console": {
+            "severity": "warning",
+            "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
+        }
+    },
+    "exclude": [],
+    "linterOptions": {
+        "exclude": [
+            "node_modules"
+        ]
+    },
+    "jsRules": {
+        "max-line-length": {
+            "options": [1]
+        }
+    }
+}
