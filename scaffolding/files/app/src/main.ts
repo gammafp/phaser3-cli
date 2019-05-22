@@ -1,29 +1,18 @@
 import 'phaser';
-import { MainScene } from './scenes/main-scene';
+import { CONFIG } from './config';
 declare const BUILD_TARGET: string;
+import { pgOnInit } from '../gamma/core';
 
-// main game configuration
-const config: Phaser.Types.Core.GameConfig
- = {
-    width: 800,
-    height: 600,
-    type: Phaser.AUTO,
-    parent: 'game',
-    render: {
-        pixelArt: true,
-    },
-    scene: MainScene,
-    physics: {
-        default: 'arcade',
+class Game {
+    config: Phaser.Types.Core.GameConfig
+    constructor(configIn) {
+        this.config = configIn;
     }
-};
 
-export class Game extends Phaser.Game {
-    constructor(configIn: Phaser.Types.Core.GameConfig) {
-        super(configIn);
+    @pgOnInit
+    init() {
+        new Phaser.Game(this.config);
     }
 }
 
-window.addEventListener('load', () => {
-    const game = new Game(config);
-});
+const game = new Game(CONFIG);

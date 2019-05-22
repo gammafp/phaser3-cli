@@ -58,7 +58,7 @@
         "no-conditional-assignment": true,
         "no-console": {
             "severity": "warning",
-            "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
+            
         }
     },
     "exclude": [],
