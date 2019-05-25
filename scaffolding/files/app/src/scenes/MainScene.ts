@@ -6,16 +6,16 @@ export class MainScene extends Phaser.Scene {
             key: 'MainScene'
         });
     }
-    
+
     init() {
         console.log('MainScene');
     }
-    
+
     preload(): void {
-        
+
     }
 
     create(): void {
-        
+
     }
 }

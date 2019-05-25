@@ -57,8 +57,7 @@
         "no-bitwise": true,
         "no-conditional-assignment": true,
         "no-console": {
-            "severity": "warning",
-            
+            "severity": "warning"
         }
     },
     "exclude": [],

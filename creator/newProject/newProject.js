@@ -20,7 +20,7 @@ module.exports = async (folder) => {
             // Creación del scaffolding y configuración de las variables recibidas
             spinner.start();
 
-            await files.copyFiles(`${files.getCurrentDirectory()}/scaffolding/files`, `./${newFolder}`, (err) => {
+            files.copyFiles(`${files.getCurrentDirectory()}/scaffolding/files`, `./${newFolder}`, (err) => {
                 if (err) {
                     return console.error(err);
                 }
@@ -38,7 +38,7 @@ module.exports = async (folder) => {
                     .replace('{height}', result.height)
                     .replace('{pixelart}', result.pixelArt)
                     .replace('{physics}', (JSON.parse(result.physics)) ?
-                        `\n\tphysics: {\n\t\tdefault: "arcade",\n\t\t"arcade": {\n\t\t\tgravity: {\n\t\t\t\ty: 500\n\t\t\t}\n\t\t}\n\t},` :
+                        `\n\tphysics: {\n\t\tdefault: 'arcade',\n\t\t'arcade': {\n\t\t\tgravity: {\n\t\t\t\ty: 500\n\t\t\t}\n\t\t}\n\t},` :
                         '');
                 files.writeFile(`${newFolder}/app/src/config.ts`, configFile);
 
@@ -49,6 +49,7 @@ module.exports = async (folder) => {
                 spinner.succeed(`Scaffolding created.`);
 
                 // -> Instalar dependencias
+                
                 // Phaser definitions
                 files.downloadFiles(`./${newFolder}/def/phaser.d.ts`, urlPhaserDef);
                 

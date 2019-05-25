@@ -1,11 +1,11 @@
-import { MainScene } from './scenes/MainScene';
 import { Bootloader } from './Bootloader';
+import { MainScene } from './scenes/MainScene';
 
 export const CONFIG: any = {
-    title: "{title}",
-    version: "0.0.1",
+    title: '{title}',
+    version: '0.0.1',
     type: {type},
-    backgroundColor: "#22a6b3",
+    backgroundColor: '#22a6b3',
     scale: {
         parent: 'phaser_container',
         width: {width},
