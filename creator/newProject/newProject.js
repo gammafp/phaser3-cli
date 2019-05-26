@@ -38,7 +38,7 @@ module.exports = async (folder) => {
                     .replace('{height}', result.height)
                     .replace('{pixelart}', result.pixelArt)
                     .replace('{physics}', (JSON.parse(result.physics)) ?
-                        `\n\tphysics: {\n\t\tdefault: 'arcade',\n\t\t'arcade': {\n\t\t\tgravity: {\n\t\t\t\ty: 500\n\t\t\t}\n\t\t}\n\t},` :
+                        `\n    physics: {\n        default: 'arcade',\n        arcade: {\n            gravity: {\n                y: 500\n            }\n        }\n    },` :
                         '');
                 files.writeFile(`${newFolder}/app/src/config.ts`, configFile);
 

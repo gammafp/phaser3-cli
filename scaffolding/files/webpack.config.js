@@ -1,11 +1,10 @@
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack');
 
-const pathToPhaser = path.join(__dirname, '/node_modules/phaser/');
-const phaser = path.join(pathToPhaser, 'dist/phaser.min.js');
+const pathToPhaser = path.join(__dirname, '/vendor/phaser/');
+const phaser = path.join(pathToPhaser, 'phaser.min.js');
 const routeApp = './app';
 
 module.exports = (env) => {
@@ -38,10 +37,6 @@ module.exports = (env) => {
                 {
                     test: /phaser\.js$/,
                     loader: 'expose-loader?Phaser'
-                },
-                {
-                    test: /\.css$/,
-                    use: [MiniCssExtractPlugin.loader, "css-loader"]
                 }
             ]
         },
@@ -57,12 +52,7 @@ module.exports = (env) => {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                gameName: 'Phaser3 Cli',
                 template: `${routeApp}/index.html`
-            }),
-            new MiniCssExtractPlugin({
-                filename: "[name].css",
-                chunkFilename: "[id].css"
             }),
             new CopyWebpackPlugin([{
                     from: `${routeApp}/assets`,

@@ -1,0 +1,4 @@
+{
+    "phaser": "https://raw.githubusercontent.com/photonstorm/phaser/master/dist/phaser.min.js",
+    "phaserdef": "https://raw.githubusercontent.com/photonstorm/phaser/master/types/phaser.d.ts"
+}
