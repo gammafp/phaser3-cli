@@ -2,11 +2,13 @@ const files = require('../../lib/files');
 const newProjectQuestion = require('../../questions/newProject');
 const ora = require('ora');
 const command = require('child_process');
+const emoji = require('node-emoji');
 
 const log = require('../../lib/log');
 
 const regexFolderName = /^(?:[a-zA-Z0-9-~][a-zA-Z0-9-._~]*)?[a-zA-Z0-9-~][a-zA-Z0-9-._~]*$/g;
-const urlPhaserDef = 'https://raw.githubusercontent.com/photonstorm/phaser/master/types/phaser.d.ts';
+
+const repoURL = 'https://raw.githubusercontent.com/gammafp/phaser3-cli/master/repos.json';
 
 module.exports = async (folder) => {
     if (!files.directoryExists(folder)) {
@@ -19,6 +21,14 @@ module.exports = async (folder) => {
 
             // Creación del scaffolding y configuración de las variables recibidas
             spinner.start();
+
+            let repository = await files.readFileFromURL(repoURL);
+            if (repository.search('phaser') === -1) {
+                spinner.fail('Fail download repositories.');
+                return false;
+            }
+
+            repository = JSON.parse(repository);
 
             files.copyFiles(`${files.getCurrentDirectory()}/scaffolding/files`, `./${newFolder}`, (err) => {
                 if (err) {
@@ -43,34 +53,32 @@ module.exports = async (folder) => {
                 files.writeFile(`${newFolder}/app/src/config.ts`, configFile);
 
                 const indexHTMLFile = files.readFile(`${newFolder}/app/index.html`)
-                .replace('{title}', result.title)
+                    .replace('{title}', result.title)
                 files.writeFile(`${newFolder}/app/index.html`, indexHTMLFile);
 
                 spinner.succeed(`Scaffolding created.`);
 
                 // -> Instalar dependencias
-                
+                spinner.text = 'Donwload Phaser :)';
+                spinner.start();
                 // Phaser definitions
-                files.downloadFiles(`./${newFolder}/def/phaser.d.ts`, urlPhaserDef);
-                
+                files.downloadFiles(`./${newFolder}/def/phaser.d.ts`, repository.phaserdef);
+                // Download Phaser
+                files.downloadFiles(`./${newFolder}/vendor/phaser/phaser.min.js`, repository.phaser);
+                spinner.succeed(emoji.emojify(':heart:') + ' Phaser download has finished ' + emoji.emojify(':heart:'));
+
                 spinner.text = 'Installing dependencies please be patient...';
                 spinner.start();
 
-                command.exec(`cd ${newFolder} && npm i phaser`, (err, stdout, stderr) => {
+                command.exec(`cd ${newFolder} && npm i`, (err, stdout, stderr) => {
                     if (err) {
                         log.danger(err);
                         return;
                     }
-                    command.exec(`cd ${newFolder} && npm i`, (err, stdout, stderr) => {
-                        if (err) {
-                            log.danger(err);
-                            return;
-                        }
-                        spinner.succeed('The dependencies are installed.');
-                        log.success('Enjoy your game development :)');
-                    });
-                    console.log(stdout);
+                    spinner.succeed('The dependencies are installed.');
+                    log.success('Enjoy your game development :)');
                 });
+
             });
 
         } else {
