@@ -11,6 +11,9 @@ const execServe = require('./creator/serve/serve');
 const execBuild = require('./creator/build/build');
 const addScene = require('./creator/add/scene');
 
+// Agregar server gamma/core
+const gammaCoreServer = require('./server_gamma_core/server');
+
 program
     .version(pjson.version)
     .command('new [folder_name]')
@@ -45,5 +48,11 @@ program
         } else {
             log.danger('Error: The name scene is missing:\n\tphaser add scene <nameScene>');
         }
+    });
+// TODO: Agregar gammaCoreServer();
+program
+    .command('test')
+    .action(() => {
+        gammaCoreServer();
     });
 program.parse(process.argv)
