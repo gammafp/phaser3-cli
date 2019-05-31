@@ -24,8 +24,26 @@ export function pgOnResize(
     });
 }
 
+/**
+ * Ayuda a obtener la mitad del viewport
+ */
+export const canvasSize = {
+    w: (scene) => scene.scale.width,
+    h: (scene) => scene.scale.height,
+    mw: (scene) => scene.scale.width / 2,
+    mh: (scene) => scene.scale.height / 2
+};
+
+
+// Variable para agrupar el dragGameObject UI
+let uIDrag = null;
+/**
+ * Herramienta que ayuda a posicionar un elemento en el canvas.
+ */
 export function dragGameObject() {
-    return (target: object, key: string | symbol) => {
+
+    return (target: any, key: string | symbol) => {
+        const sceneName = target.constructor.name;
         let val = target[key];
 
         const setter = (gameObject) => {
@@ -35,6 +53,20 @@ export function dragGameObject() {
             val.scene.input.setDraggable(val);
             val.scene.input.on('dragstart', (pointer, game_object) => {
                 game_object.setTint(0xff0000);
+                console.log('Se ha seleccionado la escena ', sceneName);
+                console.log('El valor es: ', val);
+                const div = document.createElement('div');
+                div.setAttribute('id', 'uIDrag');
+                div.style.background = `rgba(${Phaser.Math.Between(0, 254)}, 255, ${Phaser.Math.Between(0, 254)})`;
+                div.style.width = '100px';
+                div.style.height = '100px';
+
+                if (uIDrag !== null) {
+                    uIDrag.destroy();
+                }
+                uIDrag = val.scene.add.dom(Phaser.Math.Between(25, 300), 100, div);
+
+
             });
 
             val.scene.input.on('drag', (pointer, game_object, dragX, dragY) => {
@@ -44,6 +76,8 @@ export function dragGameObject() {
 
             val.scene.input.on('dragend', (pointer, game_object) => {
                 game_object.clearTint();
+                const modificarDiv = document.querySelector('#uIDrag') as HTMLElement;
+                modificarDiv.style.background = 'rgb(255, 0, 0)';
             });
         };
 
