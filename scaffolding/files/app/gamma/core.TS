@@ -53,8 +53,7 @@ export function dragGameObject() {
             val.scene.input.setDraggable(val);
             val.scene.input.on('dragstart', (pointer, game_object) => {
                 game_object.setTint(0xff0000);
-                console.log('Se ha seleccionado la escena ', sceneName);
-                console.log('El valor es: ', val);
+      
                 const div = document.createElement('div');
                 div.setAttribute('id', 'uIDrag');
                 div.style.background = `rgba(${Phaser.Math.Between(0, 254)}, 255, ${Phaser.Math.Between(0, 254)})`;
