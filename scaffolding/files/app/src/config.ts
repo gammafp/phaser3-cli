@@ -13,6 +13,9 @@ export const CONFIG: any = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
+    dom: {
+        createContainer: true
+    },
     render: {
         pixelArt: {pixelart},
     },{physics}

@@ -1,3 +1,5 @@
+import { info_drag } from './templates';
+
 /**
  * A callback method that is invoked immediately after the
  * DOM is it change.
@@ -43,41 +45,58 @@ let uIDrag = null;
 export function dragGameObject() {
 
     return (target: any, key: string | symbol) => {
-        const sceneName = target.constructor.name;
         let val = target[key];
 
         const setter = (gameObject) => {
+
             val = gameObject;
             val.setInteractive();
-
             val.scene.input.setDraggable(val);
+            
             val.scene.input.on('dragstart', (pointer, game_object) => {
                 game_object.setTint(0xff0000);
-      
-                const div = document.createElement('div');
-                div.setAttribute('id', 'uIDrag');
-                div.style.background = `rgba(${Phaser.Math.Between(0, 254)}, 255, ${Phaser.Math.Between(0, 254)})`;
-                div.style.width = '100px';
-                div.style.height = '100px';
-
+                // Crea y destruye la información de posición
                 if (uIDrag !== null) {
                     uIDrag.destroy();
                 }
-                uIDrag = val.scene.add.dom(Phaser.Math.Between(25, 300), 100, div);
-
-
+                uIDrag = val.scene.add.dom(val.scene.scale.width - 50, 70/2).createFromHTML(info_drag);
+                uIDrag.getChildByID('x_pos_drag_info').innerHTML = game_object.x;
+                uIDrag.getChildByID('y_pos_drag_info').innerHTML = game_object.y;
+                fix_UIDrag_pos(game_object);            
             });
 
             val.scene.input.on('drag', (pointer, game_object, dragX, dragY) => {
-                game_object.x = dragX;
-                game_object.y = dragY;
+                game_object.x = Math.round(dragX);
+                game_object.y = Math.round(dragY);
+                uIDrag.getChildByID('x_pos_drag_info').innerHTML = game_object.x;
+                uIDrag.getChildByID('y_pos_drag_info').innerHTML = game_object.y;
+                fix_UIDrag_pos(game_object);
             });
 
             val.scene.input.on('dragend', (pointer, game_object) => {
                 game_object.clearTint();
-                const modificarDiv = document.querySelector('#uIDrag') as HTMLElement;
-                modificarDiv.style.background = 'rgb(255, 0, 0)';
             });
+
+            const fix_UIDrag_pos = (game_object) => {
+                // Corrección de la sobreposición de uIDrag de la derecha
+                if(
+                    (game_object.x + (game_object.width * game_object.originX)) > uIDrag.x - 50
+                    &&
+                    (game_object.y - (game_object.height * game_object.originY)) < uIDrag.y + 70/2
+                    ) {
+                    uIDrag.x = 50;
+                    uIDrag.y = 70/2;
+                }
+                if(
+                    (game_object.x - (game_object.width * game_object.originX)) < uIDrag.x + 50
+                    &&
+                    (game_object.y - (game_object.height * game_object.originY)) < uIDrag.y + 70/2
+                    ) {
+                    uIDrag.x = val.scene.scale.width - 50;
+                    uIDrag.y = 70/2;
+                }
+            }
+
         };
 
         Object.defineProperty(target, key, {
