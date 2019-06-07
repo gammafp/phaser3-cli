@@ -42,11 +42,18 @@ let uIDrag = null;
 /**
  * Herramienta que ayuda a posicionar un elemento en el canvas.
  */
-export function dragGameObject() {
+export function dragGameObject(pathConfig) {
 
+    // Objeto a enviar al servidor 
+    const configToSend: any = {
+        path: pathConfig.path
+    };
     return (target: any, key: string | symbol) => {
-        let val = target[key];
+        // nombre variable de referencia para enviar al servidor
+        configToSend.variableKey = key;
+        
 
+        let val = target[key];
         const setter = (gameObject) => {
 
             val = gameObject;
@@ -58,11 +65,19 @@ export function dragGameObject() {
                 // Crea y destruye la información de posición
                 if (uIDrag !== null) {
                     uIDrag.destroy();
+                    uIDrag.removeListener('click');
                 }
                 uIDrag = val.scene.add.dom(val.scene.scale.width - 50, 70/2).createFromHTML(info_drag);
                 uIDrag.getChildByID('x_pos_drag_info').innerHTML = game_object.x;
                 uIDrag.getChildByID('y_pos_drag_info').innerHTML = game_object.y;
-                fix_UIDrag_pos(game_object);            
+                fix_UIDrag_pos(game_object);  
+
+                uIDrag.getChildByID('drag_info_button_send').addEventListener('click', () => {
+                    // TODO: Change alert to config
+                    if(confirm('Are you sure?')) {
+                        console.log('Esto es lo que se va a enviar ', configToSend);
+                    }
+                });
             });
 
             val.scene.input.on('drag', (pointer, game_object, dragX, dragY) => {
@@ -75,6 +90,10 @@ export function dragGameObject() {
 
             val.scene.input.on('dragend', (pointer, game_object) => {
                 game_object.clearTint();
+                configToSend.x = game_object.x;
+                configToSend.y = game_object.y;
+
+                
             });
 
             const fix_UIDrag_pos = (game_object) => {

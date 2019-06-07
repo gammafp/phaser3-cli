@@ -85,7 +85,7 @@ body {
             <span class="y_pos" id="y_pos_drag_info">0</span>
         </div>
     </div>
-    <button class="accept_button">
+    <button class="accept_button" id="drag_info_button_send">
         OK
     </button>
 </div>
