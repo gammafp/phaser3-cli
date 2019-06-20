@@ -31,6 +31,7 @@ program
     .action(() => {
         log.success('\nStarting server...');
         execServe();
+        gammaCoreServer();
     });
 
 program
@@ -49,7 +50,6 @@ program
             log.danger('Error: The name scene is missing:\n\tphaser add scene <nameScene>');
         }
     });
-// TODO: Agregar gammaCoreServer();
 program
     .command('test')
     .action(() => {
