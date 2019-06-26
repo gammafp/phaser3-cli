@@ -9,7 +9,9 @@ const log = require('./lib/log');
 const newProject = require('./creator/newProject/newProject');
 const execServe = require('./creator/serve/serve');
 const execBuild = require('./creator/build/build');
+const execBuildAndroid = require('./creator/build/build_android');
 const addScene = require('./creator/add/scene');
+const addAndroid = require('./creator/add/android');
 
 // Agregar server gamma/core
 const gammaCoreServer = require('./server_gamma_core/server');
@@ -35,21 +37,34 @@ program
     });
 
 program
-    .command('build')
-    .action(() => {
-        log.success('\nBuilding your game...');
-        execBuild();
+    .command('build [args...]')
+    .action((type) => {
+        if(type.length === 0) {
+            // Build to web
+            log.success('\nBuilding your game...');
+            execBuild();
+        } 
+
+        if(type[0] === 'android') {
+            execBuildAndroid();
+        }
     });
 
 program
     .command('add <type> [args...]')
     .action((type, sceneName) => {
         if(type === 'scene') {
-            addScene(sceneName);
-        } else {
-            log.danger('Error: The name scene is missing:\n\tphaser add scene <nameScene>');
+            if(sceneName.length > 0) {
+                addScene(sceneName);
+            } else {
+                log.danger('Error: The name scene is missing:\n\tphaser add scene <nameScene>');
+            }
+        }
+        if(type === 'android') {
+            addAndroid();
         }
     });
+    
 program
     .command('test')
     .action(() => {

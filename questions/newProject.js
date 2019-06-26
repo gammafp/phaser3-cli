@@ -34,7 +34,7 @@ module.exports = {
             {
                 type: 'number',
                 name: 'height',
-                default: 380,
+                default: 360,
                 message: 'heigth of project',
                 validate: validNumber
             }, 

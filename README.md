@@ -37,4 +37,30 @@ To get started locally, follow these instructions:
 ```bash
 > phaser serve
 ```
+---
+You can add a scene with: 
+```bash
+> phaser add scene <sceneName>
+```
+
+---
+## Android
+## ¡Important: You need have installed Android Studio!
+You can add a android project with capacitor:
+1. Add capacitor android project
+```bash
+> phaser add android
+```
+2. Build your android project:
+```bash
+> phaser build android
+```
+
+---
+## Web
+You can build your web package with: 
+```bash
+> phaser build 
+```
+
 And enjoy you game dev :D

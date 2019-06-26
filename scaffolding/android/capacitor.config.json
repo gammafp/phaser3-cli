@@ -1,0 +1,7 @@
+{
+  "appId": "com.phaser.app",
+  "appName": "App",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist"
+}
