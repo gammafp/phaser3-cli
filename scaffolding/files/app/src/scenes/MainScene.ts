@@ -12,11 +12,7 @@ export class MainScene extends Phaser.Scene {
         console.log('MainScene');
     }
 
-    preload(): void {
-        this.image = this.add.image(this.scale.width / 2, this.scale.height / 2, 'phaser3_cli');
-    }
-
     create(): void {
-
+        this.image = this.add.image(this.scale.width / 2, this.scale.height / 2, 'phaser3_cli');
     }
 }
