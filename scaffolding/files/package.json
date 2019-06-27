@@ -7,6 +7,7 @@
         "dev": "webpack-dev-server --mode development --open",
         "dev-android": "webpack-dev-server --mode development --open --env.android",
         "build": "webpack --mode production",
+        "build-install-android": "webpack --mode production --env.android",
         "build-android": "webpack --mode production --env.android && npx cap copy android && npx cap open android",
         "build-ios": "webpack --mode production --env.ios && npx cap copy ios && npx cap open ios",
         "build-electron": "webpack --mode production --env.electron && npx cap copy electron"
