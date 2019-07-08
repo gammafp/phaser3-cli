@@ -12,9 +12,9 @@ module.exports = () => {
                 log.danger(err);
                 return;
             }
-            spinner.succeed('Android studio is open.');
-            log.success('Your must create a apk with Android Studio, good look :D');
         });
+        spinner.succeed('Android studio is open.');
+        log.success('Your must create a apk with Android Studio, good look :D');
     } else {
         log.no_project();
     }

@@ -51,10 +51,16 @@ You can add a android project with capacitor:
 ```bash
 > phaser add android
 ```
-2. Build your android project:
+2. Build your android project (Android Studio):
 ```bash
 > phaser build android
 ```
+
+3. Update your project when you modify your game files
+```bash
+> phaser android copy
+```
+
 
 ---
 ## Web
