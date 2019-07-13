@@ -1,4 +1,4 @@
 {
-    "route_base_project": "app",
+    "route_base_project": "game",
     "port_server_gamma_core": "43010"
 }

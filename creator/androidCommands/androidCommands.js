@@ -1,5 +1,6 @@
 const command = require('child_process');
 const ora = require('ora');
+const log = require('../../lib/log');
 
 module.exports = {
     copy: () => {

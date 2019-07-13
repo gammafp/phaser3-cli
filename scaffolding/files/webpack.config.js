@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 const pathToPhaser = path.join(__dirname, '/vendor/phaser/');
 const phaser = path.join(pathToPhaser, 'phaser.min.js');
-const routeApp = './app';
+const routeApp = './game';
 
 module.exports = (env) => {
     let target;
@@ -41,7 +41,7 @@ module.exports = (env) => {
             ]
         },
         devServer: {
-            contentBase: path.resolve(__dirname, './app'),
+            contentBase: path.resolve(__dirname, `./${routeApp}`),
             port: 4300
         },
         resolve: {

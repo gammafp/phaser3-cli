@@ -1,6 +1,6 @@
 {
   "name": "phaser3-cli",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A CLI for Phaser 3",
   "main": "index.js",
   "scripts": {

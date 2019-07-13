@@ -10,6 +10,8 @@ const regexFolderName = /^(?:[a-zA-Z0-9-~][a-zA-Z0-9-._~]*)?[a-zA-Z0-9-~][a-zA-Z
 
 const repoURL = 'https://raw.githubusercontent.com/gammafp/phaser3-cli/master/repos.json';
 
+const config_routes = require('../../config.json');
+
 module.exports = async (folder) => {
     if (!files.directoryExists(folder)) {
         if (regexFolderName.test(folder)) {
@@ -41,7 +43,7 @@ module.exports = async (folder) => {
                 files.writeFile(`./${newFolder}/package.json`, packageJSON);
 
                 // Change config title name 
-                const configFile = files.readFile(`${newFolder}/app/src/config.ts`)
+                const configFile = files.readFile(`${newFolder}/${config_routes.route_base_project}/src/config.ts`)
                     .replace('{title}', result.title)
                     .replace('{type}', result.type)
                     .replace('{width}', result.width)
@@ -50,11 +52,11 @@ module.exports = async (folder) => {
                     .replace('{physics}', (JSON.parse(result.physics)) ?
                         `\n    physics: {\n        default: 'arcade',\n        arcade: {\n            gravity: {\n                y: 500\n            }\n        }\n    },` :
                         '');
-                files.writeFile(`${newFolder}/app/src/config.ts`, configFile);
+                files.writeFile(`${newFolder}/${config_routes.route_base_project}/src/config.ts`, configFile);
 
-                const indexHTMLFile = files.readFile(`${newFolder}/app/index.html`)
+                const indexHTMLFile = files.readFile(`${newFolder}/${config_routes.route_base_project}/index.html`)
                     .replace('{title}', result.title)
-                files.writeFile(`${newFolder}/app/index.html`, indexHTMLFile);
+                files.writeFile(`${newFolder}/${config_routes.route_base_project}/index.html`, indexHTMLFile);
 
                 spinner.succeed(`Scaffolding created.`);
 

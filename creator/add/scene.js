@@ -4,9 +4,9 @@ const {sceneNameToUpperCase, getSceneRoute} = require('../../lib/helpers');
 
 const ora = require('ora');
 
-const configURL = './app/src/config.ts';
-// TODO: Crear el nuevo archivo
-const sceneTextURL = './'
+const config_routes = require('../../config.json');
+
+const configURL = `./${config_routes.route_base_project}/src/config.ts`;
 
 const regexImports = /export *[c|C][o|O][n|N][s|S][t|T] *[c|C][o|O][n|N][f|F][i|I][g|G] *: * (.*)=/;
 const regexScene = /"?scene"? *: *[\n\t\r\s\[\w,]*[\w]/;
@@ -43,7 +43,7 @@ module.exports = (sceneNames) => {
                             const sceneScaffold = files.readFile(`${files.getCurrentDirectory()}/scaffolding/scene.ts`)
                             .replace(/{sceneName}/g, name);
 
-                            const sceneRoute =`app/src/${route}/${name}.ts`;
+                            const sceneRoute =`${config_routes.route_base_project}/src/${route}/${name}.ts`;
                             files.writeFile(sceneRoute, sceneScaffold);
                         });
                         // --> Escribir escena
