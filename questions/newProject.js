@@ -49,10 +49,11 @@ module.exports = {
             }, {
                 type: 'list',
                 name: 'physics',
-                message: 'Do you want arcade physics?',
+                message: 'What physics system do you use?',
                 choices: [
-                    'true',
-                    'false'
+                    'arcade',
+                    'matter',
+                    'none'
                 ]
             }
         ];

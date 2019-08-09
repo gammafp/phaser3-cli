@@ -42,6 +42,15 @@ module.exports = async (folder) => {
                     .replace('{name}', newFolder);
                 files.writeFile(`./${newFolder}/package.json`, packageJSON);
 
+
+
+                let physics = '';
+                if (result.physics === 'matter') {
+                    physics = `\n    physics: {\n        default: 'matter',\n        matter: {\n            gravity: {\n                y: 500\n            }\n        }\n    },`;
+                } else if (result.physics === 'arcade') {
+                    physics = `\n    physics: {\n        default: 'arcade',\n        arcade: {\n            gravity: {\n                y: 500\n            }\n        }\n    },`;
+                }
+
                 // Change config title name 
                 const configFile = files.readFile(`${newFolder}/${config_routes.route_base_project}/src/config.ts`)
                     .replace('{title}', result.title)
@@ -49,9 +58,8 @@ module.exports = async (folder) => {
                     .replace('{width}', result.width)
                     .replace('{height}', result.height)
                     .replace('{pixelart}', result.pixelArt)
-                    .replace('{physics}', (JSON.parse(result.physics)) ?
-                        `\n    physics: {\n        default: 'arcade',\n        arcade: {\n            gravity: {\n                y: 500\n            }\n        }\n    },` :
-                        '');
+                    .replace('{physics}', physics);
+
                 files.writeFile(`${newFolder}/${config_routes.route_base_project}/src/config.ts`, configFile);
 
                 const indexHTMLFile = files.readFile(`${newFolder}/${config_routes.route_base_project}/index.html`)

@@ -2,6 +2,7 @@ const command = require('child_process');
 const ora = require('ora');
 const log = require('../../lib/log');
 
+// Actualiza proyectos existentes
 module.exports = {
     copy: () => {
         const spinner = ora(`Updating the project of Android Studio...\n`);

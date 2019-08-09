@@ -1,6 +1,6 @@
 {
-  "appId": "com.phaser.app",
-  "appName": "App",
+  "appId": "com.gamma.game",
+  "appName": "{{app_name}}",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist"
