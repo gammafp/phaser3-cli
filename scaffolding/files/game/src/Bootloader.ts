@@ -8,7 +8,7 @@ export class Bootloader extends Phaser.Scene {
 
     preload(): void {
         this.load.setPath('assets/');
-        this.load.image('phaser3_cli');        
+        this.load.image('phaser3_cli');
 
         this.load.on('complete', () => {
             this.scene.start('MainScene');

@@ -42,9 +42,14 @@ let uIDrag = null;
 /**
  * Herramienta que ayuda a posicionar un elemento en el canvas.
  */
-export function dragGameObject(pathConfig) {
+declare interface PathConfig {
+    path: string;
+}
 
-    // Objeto a enviar al servidor 
+// pathConfig: {path: scenes/MainScene.ts}
+export function dragGameObject(pathConfig: PathConfig) {
+
+    // Objeto a enviar al servidor
     const configToSend: any = {
         path: pathConfig.path
     };
@@ -58,6 +63,27 @@ export function dragGameObject(pathConfig) {
             val.nameGammaCore = key;
             val.scene.input.setDraggable(val);
 
+
+            const fix_UIDrag_pos = (game_object) => {
+                // Corrección de la sobreposición de uIDrag de la derecha
+                if (
+                    (game_object.x + (game_object.width * game_object.originX)) > uIDrag.x - 50
+                    &&
+                    (game_object.y - (game_object.height * game_object.originY)) < uIDrag.y + 70 / 2
+                ) {
+                    uIDrag.x = 50;
+                    uIDrag.y = 70 / 2;
+                }
+                if (
+                    (game_object.x - (game_object.width * game_object.originX)) < uIDrag.x + 50
+                    &&
+                    (game_object.y - (game_object.height * game_object.originY)) < uIDrag.y + 70 / 2
+                ) {
+                    uIDrag.x = val.scene.scale.width - 50;
+                    uIDrag.y = 70 / 2;
+                }
+            };
+
             val.scene.input.on('dragstart', (pointer, game_object) => {
                 console.log(val);
                 game_object.setTint(0xff0000);
@@ -68,7 +94,7 @@ export function dragGameObject(pathConfig) {
                 }
                 // nombre variable de referencia para enviar al servidor
                 configToSend.variableKey = game_object.nameGammaCore;
-                
+
                 uIDrag = val.scene.add.dom(val.scene.scale.width - 50, 70 / 2).createFromHTML(info_drag);
                 uIDrag.getChildByID('x_pos_drag_info').innerHTML = game_object.x;
                 uIDrag.getChildByID('y_pos_drag_info').innerHTML = game_object.y;
@@ -82,18 +108,18 @@ export function dragGameObject(pathConfig) {
                             body: JSON.stringify(configToSend),
                             mode: 'no-cors',
                             headers: {
-                                'Accept': 'application/json',
+                                Accept: 'application/json',
                                 'Content-Type': 'application/json'
                             }
                         }).then(res => {
                             return res.text();
                         })
-                        .then(response => {
-                            console.log('Success:', response)
-                        })
-                        .catch(error => {
-                            console.error('Error:', error)
-                        });
+                            .then(response => {
+                                console.log('Success:', response)
+                            })
+                            .catch(error => {
+                                console.error('Error:', error)
+                            });
 
                         console.log('Esto es lo que se va a enviar ', configToSend);
                     }
@@ -115,27 +141,6 @@ export function dragGameObject(pathConfig) {
 
 
             });
-
-            const fix_UIDrag_pos = (game_object) => {
-                // Corrección de la sobreposición de uIDrag de la derecha
-                if (
-                    (game_object.x + (game_object.width * game_object.originX)) > uIDrag.x - 50
-                    &&
-                    (game_object.y - (game_object.height * game_object.originY)) < uIDrag.y + 70 / 2
-                ) {
-                    uIDrag.x = 50;
-                    uIDrag.y = 70 / 2;
-                }
-                if (
-                    (game_object.x - (game_object.width * game_object.originX)) < uIDrag.x + 50
-                    &&
-                    (game_object.y - (game_object.height * game_object.originY)) < uIDrag.y + 70 / 2
-                ) {
-                    uIDrag.x = val.scene.scale.width - 50;
-                    uIDrag.y = 70 / 2;
-                }
-            }
-
         };
 
         Object.defineProperty(target, key, {
